@@ -1,16 +1,27 @@
+// TODO: add loading component while show is false
+
 /* useful for /login routes, where we want to redirect to dashboard */
-import { isLoggedIn } from '.';
-import { Router } from 'next/router';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+import { AppContext } from '../../components'
+import ensureUser from './ensure-user';
 
 const withoutAuth = (Component) => {
   const WrappedComponent = () => {
-    useEffect(() => {
-      if (isLoggedIn()) {
-        Router.push('/');
+    const [show, setShow] = useState(false)
+    const router = useRouter()
+    const { entryPoint } = useContext(AppContext)
+
+    useEffect(async () => {
+      const user = await ensureUser()
+      console.log('user?', user)
+      if (user) {
+        router.push(entryPoint);
+      } else {
+        setShow(true);
       }
     }, []);
-    return <Component />;
+    return show && <Component />;
   };
 
   return WrappedComponent;

@@ -6,7 +6,7 @@ import refreshToken from './refresh-token';
 
 const ensureUser = async (cookie) => {
   const inMemoryToken = store.getState();
-  if (!cookie && inMemoryToken) {
+  if (!cookie && !inMemoryToken) {
     return false
   }
   const decoded = jwt.decode(inMemoryToken);
