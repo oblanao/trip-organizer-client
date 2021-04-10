@@ -1,3 +1,4 @@
+import { checkAuth, withAuth } from '../services/auth';
 import { Menu, Tooltip, MenuButton } from '../components';
 import { SayGoodbye, SayHello } from '../components/Demo';
 
@@ -72,4 +73,8 @@ const Page = () => (
   </div>
 );
 
-export default Page;
+export async function getServerSideProps(context) {
+  return await checkAuth(context);
+}
+
+export default withAuth(Page);
