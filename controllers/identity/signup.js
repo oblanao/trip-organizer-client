@@ -1,6 +1,6 @@
 import router from 'next/router';
-import { toaster } from '../functions';
-import { fetch } from '../services/api';
+import { toaster } from '../../functions';
+import { fetch } from '../../services/api';
 
 const signup = async (ref, data) => {
   try {

@@ -1,16 +1,18 @@
-import { toaster } from '../functions';
-import { fetch } from '../services/api';
+import router from 'next/router';
+import { toaster } from '../../functions';
+import { login as loginAuth } from '../../services/auth';
 
-const forgot = async (ref, data) => {
+const login = async (ref, data) => {
   try {
     // execute google recaptcha
     data['g-recaptcha-response'] = await ref.current.executeAsync();
 
     // execute main action
-    await fetch(`forgot`, { data, withAuth: false, method: 'POST' });
+    const message = await loginAuth(data);
 
     // notify user and other actions
-    toaster.success('You will receive an email with reset instructions');
+    toaster.success(message);
+    router.push('/dashboard');
   } catch ({ message }) {
     toaster.error(message);
 
@@ -19,4 +21,4 @@ const forgot = async (ref, data) => {
   }
 };
 
-export default forgot;
+export default login;

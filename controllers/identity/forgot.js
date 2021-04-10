@@ -1,16 +1,16 @@
-import { toaster } from '../functions';
-import { fetch } from '../services/api';
+import { toaster } from '../../functions';
+import { fetch } from '../../services/api';
 
-const reset = async (ref, hash, data) => {
+const forgot = async (ref, data) => {
   try {
     // execute google recaptcha
     data['g-recaptcha-response'] = await ref.current.executeAsync();
 
     // execute main action
-    await fetch(`reset/${hash}`, { data, withAuth: false, method: 'POST' });
+    await fetch(`forgot`, { data, withAuth: false, method: 'POST' });
 
     // notify user and other actions
-    toaster.success('Your password has been changed');
+    toaster.success('You will receive an email with reset instructions');
   } catch ({ message }) {
     toaster.error(message);
 
@@ -19,4 +19,4 @@ const reset = async (ref, hash, data) => {
   }
 };
 
-export default reset;
+export default forgot;

@@ -1,18 +1,16 @@
-import router from 'next/router';
-import { toaster } from '../functions';
-import { login as loginAuth } from '../services/auth';
+import { toaster } from '../../functions';
+import { fetch } from '../../services/api';
 
-const login = async (ref, data) => {
+const reset = async (ref, hash, data) => {
   try {
     // execute google recaptcha
     data['g-recaptcha-response'] = await ref.current.executeAsync();
 
     // execute main action
-    const message = await loginAuth(data);
+    await fetch(`reset/${hash}`, { data, withAuth: false, method: 'POST' });
 
     // notify user and other actions
-    toaster.success(message);
-    router.push('/dashboard');
+    toaster.success('Your password has been changed');
   } catch ({ message }) {
     toaster.error(message);
 
@@ -21,4 +19,4 @@ const login = async (ref, data) => {
   }
 };
 
-export default login;
+export default reset;
