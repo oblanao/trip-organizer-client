@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import store from './store';
 import ensureUser from './ensure-user';
@@ -17,11 +17,13 @@ const withAuth = (WrappedComponent) => {
   };
 
   const Wrapper = (props) => {
-    useEffect(() => {
-      verifyUser();
+    const [ensured, setEnsured] = useState(false)
+    useEffect(async () => {
+      await verifyUser();
+      setEnsured(true)
     }, []);
 
-    return <WrappedComponent withAuth {...props} />;
+    return ensured && <WrappedComponent withAuth {...props} />;
   };
 
   return Wrapper;
