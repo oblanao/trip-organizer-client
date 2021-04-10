@@ -5,7 +5,7 @@ import Favicon from './Favicon';
 import Link from './Link';
 import Loading from './Loading';
 import LoadMore from './LoadMore';
-import LoginScreen from './LoginScreen';
+import { DashboardScreen, LoginScreen } from './Screens';
 import Logo from './Logo';
 import Menu from './Menu';
 import MenuButton from './MenuButton';
@@ -19,6 +19,7 @@ export {
   AppContext,
   AppHead,
   Button,
+  DashboardScreen,
   Favicon,
   Link,
   Loading,

@@ -1,5 +1,5 @@
-import { Link } from '.'
-import { LoginForm } from './Formik'
+import { Link } from '..'
+import { LoginForm } from '../Formik'
 
 const LoginScreen = () => (
   <main className="cover min-h-screen px-4 py-8 flex flex-col items-center justify-center">
