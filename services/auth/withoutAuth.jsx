@@ -1,30 +1,32 @@
-// TODO: add loading component while show is false
-
-/* useful for /login routes, where we want to redirect to dashboard */
-import { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
-import { AppContext } from '../../components'
+import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
+import store from './store';
 import ensureUser from './ensure-user';
 
-const withoutAuth = (Component) => {
-  const WrappedComponent = () => {
-    const [show, setShow] = useState(false)
-    const router = useRouter()
-    const { entryPoint } = useContext(AppContext)
-
-    useEffect(async () => {
-      const user = await ensureUser()
-      console.log('user?', user)
-      if (user) {
-        router.push(entryPoint);
-      } else {
-        setShow(true);
-      }
-    }, []);
-    return show && <Component />;
+/**
+ * @see https://github.com/zeit/next.js/issues/153#issuecomment-257924301
+ */
+const withoutAuth = (WrappedComponent) => {
+  const verifyUser = async (setEnsured) => {
+    try {
+      const refresh = await ensureUser();
+      store.dispatch({ type: 'SET', jwt: refresh });
+      Router.push('/dashboard');
+    } catch (err) {
+      setEnsured(true)
+    }
   };
 
-  return WrappedComponent;
+  const Wrapper = () => {
+    const [ensured, setEnsured] = useState(false)
+    useEffect(async () => {
+      await verifyUser(setEnsured);
+    }, []);
+
+    return ensured && <WrappedComponent />;
+  };
+
+  return Wrapper;
 };
 
 export default withoutAuth;
