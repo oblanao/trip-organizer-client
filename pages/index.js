@@ -1,8 +1,8 @@
 import { checkAuth, withAuth } from '../services/auth';
-import DashboardPage from './dashboard';
+import { DashboardScreen } from '../components/Screens';
 
 export async function getServerSideProps(context) {
   return await checkAuth(context);
 }
 
-export default withAuth(DashboardPage);
+export default withAuth(DashboardScreen);
