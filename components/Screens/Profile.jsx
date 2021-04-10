@@ -1,5 +1,5 @@
 import { Menu, MenuButton, Tooltip } from '../../components';
-import { Profile } from '../../components/Demo';
+import { Logout, Profile } from '../../components/Demo';
 
 const ProfileScreen = () => (
   <div className="font-body text-sm min-h-screen bg-gray-100 flex">
@@ -14,6 +14,7 @@ const ProfileScreen = () => (
       </div>
       <h1 className="font-semibold mb-4">My profile</h1>
       <Profile />
+      <Logout />
     </main>
   </div>
 );
