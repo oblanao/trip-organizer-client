@@ -6,7 +6,7 @@ import { AppContext } from '../../components'
 /**
  * @see https://github.com/zeit/next.js/issues/153#issuecomment-257924301
  */
-const withoutAuth = (WrappedComponent) => {
+const withoutAuth = (WrappedComponent, redirectTo) => {
   const verifyUser = async (setEnsured, redirectTo) => {
     try {
       const refresh = await ensureUser();
@@ -21,7 +21,7 @@ const withoutAuth = (WrappedComponent) => {
     const [ensured, setEnsured] = useState(false)
     const { entryPoint } = useContext(AppContext)
     useEffect(async () => {
-      await verifyUser(setEnsured, entryPoint);
+      await verifyUser(setEnsured, redirectTo || entryPoint);
     }, []);
 
     return ensured && <WrappedComponent />;
