@@ -1,9 +1,11 @@
-import LoginScreen from './Login';
+import ForgotScreen from './Forgot';
 import DashboardScreen from './Dashboard';
+import LoginScreen from './Login';
 import SignupScreen from './Signup';
 
 export {
-  LoginScreen,
+  ForgotScreen,
   DashboardScreen,
+  LoginScreen,
   SignupScreen,
 }
