@@ -1,8 +1,10 @@
-import { useAxios } from '../../hooks';
+import  { useQuery } from 'react-query';
+import { fetchProfile } from '../../controllers';
+// import { useAxios } from '../../hooks';
 import { ProfileSuccess, ProfileError, ProfileLoading } from '.';
 
 const Profile = () => {
-  const { data, status } = useAxios(`/profile`);
+  const { data, status } = useQuery(`profile`, fetchProfile);
 
   return (
     <article className="bg-white border border-gray-400 rounded-lg py-4 lg:py-8 mb-4">
