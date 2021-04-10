@@ -5,5 +5,6 @@ import login from './login';
 import logout from './logout';
 import store from './store';
 import withAuth from './withAuth';
+import withoutAuth from './withoutAuth';
 
-export { checkAuth, isLoggedIn, isTokenExpired, login, logout, store, withAuth };
+export { checkAuth, isLoggedIn, isTokenExpired, login, logout, store, withAuth, withoutAuth };
